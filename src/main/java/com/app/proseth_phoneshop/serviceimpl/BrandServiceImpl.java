@@ -60,9 +60,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public BrandDTO getByName() {
-        return null;
+    public List<BrandDTO> getByName(String name) {
+        List<Brand> brandsList = brandRepository.findByName(name);
+        return brandsList.stream()
+                .map(brandMapstrucMapper::toBrandDTO).toList();
     }
-
 
 }
