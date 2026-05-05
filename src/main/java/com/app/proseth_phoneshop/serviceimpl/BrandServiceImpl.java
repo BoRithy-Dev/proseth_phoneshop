@@ -5,9 +5,13 @@ import com.app.proseth_phoneshop.entity.Brand;
 import com.app.proseth_phoneshop.mapper.BrandMapstrucMapper;
 import com.app.proseth_phoneshop.repository.BrandRepository;
 import com.app.proseth_phoneshop.service.BrandService;
+import com.app.proseth_phoneshop.spec.BrandSpec;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
@@ -20,19 +24,20 @@ import java.util.List;
 public class BrandServiceImpl implements BrandService {
     private final BrandRepository brandRepository;
     private final BrandMapstrucMapper brandMapstrucMapper;
+
     @Override
     public BrandDTO create(BrandDTO brandDTO) {
         Brand entity = brandMapstrucMapper.toBrandEntity(brandDTO);
         Brand brandEntity = brandRepository.save(entity);
         return brandMapstrucMapper.toBrandDTO(brandEntity);
     }
-
-    @Override
-    public List<BrandDTO> getAllBrands() {
-        List<Brand> brandsEntity = brandRepository.findAll();
-        return brandsEntity.stream()
-                .map(brandMapstrucMapper::toBrandDTO).toList();
-    }
+//
+//    @Override
+//    public List<BrandDTO> getAllBrands() {
+//        List<Brand> brandsEntity = brandRepository.findAll();
+//        return brandsEntity.stream()
+//                .map(brandMapstrucMapper::toBrandDTO).toList();
+//    }
 
     @Override
     public BrandDTO getBrandById(Long id) {
@@ -66,4 +71,13 @@ public class BrandServiceImpl implements BrandService {
                 .map(brandMapstrucMapper::toBrandDTO).toList();
     }
 
+    @Override
+    public Page<BrandDTO> getAllBrands(int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        Page<Brand> brandPage = brandRepository.findAll(pageable);
+        return brandPage.map(brandMapstrucMapper::toBrandDTO);
+    }
+
+    BrandSpec brandSpec = new BrandSpec();
+    List<Brand> brands = brandRepository.findAll(brandSpec);
 }
