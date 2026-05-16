@@ -1,6 +1,7 @@
 package com.app.proseth_phoneshop.controller;
 import com.app.proseth_phoneshop.dto.BrandDTO;
 import com.app.proseth_phoneshop.entity.Brand;
+import com.app.proseth_phoneshop.mapper.BrandMapstrucMapper;
 import com.app.proseth_phoneshop.service.BrandService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,12 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/brands")
 public class BrandController {
   private final BrandService brandService;
+  private final BrandMapstrucMapper brandMapstrucMapper;
   @PostMapping
   public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO){
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -44,12 +47,11 @@ public class BrandController {
     return  ResponseEntity.noContent().build();
   }
 
-  @GetMapping
-  public  ResponseEntity<Page<BrandDTO>> getAllBrands(
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "1") int size
-  ){
-    return ResponseEntity.ok(brandService.getAllBrands(page,size));
+  // For Specification filter flexible dynamic query jpa
+@GetMapping
+  public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params){
+    List<BrandDTO> brands = brandService.getBrands(params);
+    return ResponseEntity.ok(brands);
   }
 
 }

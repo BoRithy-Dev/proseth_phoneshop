@@ -10,13 +10,33 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
-@Component
 public class BrandSpec implements Specification<Brand> {
-        private Long id;
-        private String name;
+        private final BrandFilter brandFilter;
+    List<Predicate> predicates = new ArrayList<>();
     @Override
-    public @Nullable Predicate toPredicate(Root<Brand> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-        return cb.equal(root.get("name"), name);
+    public @Nullable Predicate toPredicate(Root<Brand> brand, CriteriaQuery<?> query, CriteriaBuilder cb) {
+        if(brandFilter.getName() !=null) {
+        /*
+            FOR OLD VESION
+            Predicate name = cb.like(brand.get("name")), "%" + brandFilter.getName() + "%");
+            predicates.add(name);
+         */
+
+            Predicate name = cb.like(
+                    cb.upper(brand.get("name")),
+                    "%" + brandFilter.getName().toUpperCase() + "%"  // toLowerCase → toUpperCase
+            );
+            predicates.add(name);
+        }
+
+        if(brandFilter.getId() !=null) {
+            Predicate id = brand.get("id").in(brandFilter.getId());
+            predicates.add(id);
+        }
+        return cb.and(predicates.toArray(Predicate[]::new));
     }
 }
