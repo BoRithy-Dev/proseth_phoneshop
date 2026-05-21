@@ -77,7 +77,4 @@ public class BrandServiceImpl implements BrandService {
         Page<Brand> brandPage = brandRepository.findAll(pageable);
         return brandPage.map(brandMapstrucMapper::toBrandDTO);
     }
-
-    BrandSpec brandSpec = new BrandSpec();
-    List<Brand> brands = brandRepository.findAll(brandSpec);
 }
