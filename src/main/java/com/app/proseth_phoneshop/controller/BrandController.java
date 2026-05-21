@@ -5,11 +5,13 @@ import com.app.proseth_phoneshop.service.BrandService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @RestController
@@ -44,12 +46,19 @@ public class BrandController {
     return  ResponseEntity.noContent().build();
   }
 
+//  @GetMapping
+//  public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params){
+//    Page<BrandDTO> page = brandService.getBrands(params);
+//    return ResponseEntity.ok(page);
+//  }
+
   @GetMapping
-  public  ResponseEntity<Page<BrandDTO>> getAllBrands(
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "1") int size
+  public  ResponseEntity<?> getAllBrands(
+          @RequestParam(value = "_page", defaultValue = "1") int page,
+          @RequestParam(value = "_limit", defaultValue = "2") int limit
   ){
-    return ResponseEntity.ok(brandService.getAllBrands(page,size));
+    Page<BrandDTO> result = brandService.getAllBrands(page, limit);
+    return ResponseEntity.ok(result);
   }
 
 }

@@ -6,6 +6,7 @@ import com.app.proseth_phoneshop.mapper.BrandMapstrucMapper;
 import com.app.proseth_phoneshop.repository.BrandRepository;
 import com.app.proseth_phoneshop.service.BrandService;
 import com.app.proseth_phoneshop.spec.BrandSpec;
+import com.app.proseth_phoneshop.util.PageUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
@@ -18,6 +19,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -71,9 +73,28 @@ public class BrandServiceImpl implements BrandService {
                 .map(brandMapstrucMapper::toBrandDTO).toList();
     }
 
+//    @Override
+//    public Page<BrandDTO> getBrands(Map<String, String> params) {
+//        int pageLimit = PageUtil.DEFAULT_PAGE_LIMIT;
+//        if(params.containsKey(PageUtil.PAGE_LIMIT)){
+//            pageLimit = Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
+//        }
+//
+//        int pageNumber = PageUtil.DEFAULT_PAGE_NUMBER;
+//        if(params.containsKey(PageUtil.PAGE_NUMBER)){
+//            pageNumber = Integer.parseInt(params.get(PageUtil.PAGE_NUMBER));
+//        }
+//        Pageable pageable = PageUtil.getPageable(pageNumber,pageLimit);
+//        Page<Brand> brandPage = brandRepository.findAll(pageable);
+//        return brandPage.map(brandMapstrucMapper::toBrandDTO);
+//    }
+
+
+
+
     @Override
-    public Page<BrandDTO> getAllBrands(int page, int size) {
-        Pageable pageable = PageRequest.of(page,size);
+    public Page<BrandDTO> getAllBrands(int page, int limit) {
+        Pageable pageable = PageUtil.getPageable(page,limit);
         Page<Brand> brandPage = brandRepository.findAll(pageable);
         return brandPage.map(brandMapstrucMapper::toBrandDTO);
     }
