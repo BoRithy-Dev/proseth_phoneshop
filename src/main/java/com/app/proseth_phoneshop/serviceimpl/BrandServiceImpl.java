@@ -2,6 +2,7 @@ package com.app.proseth_phoneshop.serviceimpl;
 
 import com.app.proseth_phoneshop.dto.BrandDTO;
 import com.app.proseth_phoneshop.entity.Brand;
+import com.app.proseth_phoneshop.exception.ApiExceptions;
 import com.app.proseth_phoneshop.mapper.BrandMapstrucMapper;
 import com.app.proseth_phoneshop.repository.BrandRepository;
 import com.app.proseth_phoneshop.service.BrandService;
@@ -44,15 +45,16 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public BrandDTO getBrandById(Long id) {
         Brand brandEntity = brandRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Brand not found with id: " + id));
+                .orElseThrow(()-> new ApiExceptions(HttpStatus.NOT_FOUND, "Brand Not Fund with id:" + id));
         return brandMapstrucMapper.toBrandDTO(brandEntity);
     }
 
     @Override
     public BrandDTO updateBrand(Long id, BrandDTO brandDTO) {
+//        ApiExceptions ex = new ApiExceptions();
         Brand brandEntity = brandRepository.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Brand Not Fund with id:" + id));
+               .orElseThrow(()-> new ApiExceptions(HttpStatus.NOT_FOUND, "Brand Not Fund with id:" + id));
+
         brandEntity.setName(brandDTO.getName());
         Brand update = brandRepository.save(brandEntity);
         return brandMapstrucMapper.toBrandDTO(update);
@@ -60,6 +62,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void deletedBrand(Long id) {
+
         if (!brandRepository.existsById(id)){
             throw new RuntimeException("Brand Not Fund With Id" + id);
         }
