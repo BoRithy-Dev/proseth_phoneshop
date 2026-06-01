@@ -82,10 +82,6 @@ public class BrandServiceImpl implements BrandService {
 //        Page<Brand> brandPage = brandRepository.findAll(pageable);
 //        return brandPage.map(brandMapstrucMapper::toBrandDTO);
 //    }
-
-
-
-
     @Override
     public Page<BrandDTO> getAllBrands(int page, int limit) {
         Pageable pageable = PageUtil.getPageable(page,limit);
