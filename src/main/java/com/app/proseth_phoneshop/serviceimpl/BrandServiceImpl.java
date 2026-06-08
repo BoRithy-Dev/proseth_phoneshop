@@ -9,6 +9,7 @@ import com.app.proseth_phoneshop.repository.BrandRepository;
 import com.app.proseth_phoneshop.service.BrandService;
 import com.app.proseth_phoneshop.util.PageUtil;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
+@RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
     private final BrandRepository brandRepository;
     private final BrandMapstrucMapper brandMapstrucMapper;
