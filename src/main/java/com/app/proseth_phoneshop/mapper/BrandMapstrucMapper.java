@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface BrandMapstrucMapper {
-//    BrandMapstrucMapper INSTANCE = Mappers.getMapper(BrandMapstrucMapper.class);
+    BrandMapstrucMapper INSTANCE = Mappers.getMapper(BrandMapstrucMapper.class);
     Brand toBrandEntity(BrandDTO brandDTO);
     BrandDTO toBrandDTO(Brand brand);
 }

@@ -2,27 +2,24 @@ package com.app.proseth_phoneshop.serviceimpl;
 
 import com.app.proseth_phoneshop.dto.BrandDTO;
 import com.app.proseth_phoneshop.entity.Brand;
+import com.app.proseth_phoneshop.exception.ApiExceptions;
+import com.app.proseth_phoneshop.exception.ResourceNotFoundExceptions;
 import com.app.proseth_phoneshop.mapper.BrandMapstrucMapper;
 import com.app.proseth_phoneshop.repository.BrandRepository;
 import com.app.proseth_phoneshop.service.BrandService;
-import com.app.proseth_phoneshop.spec.BrandSpec;
 import com.app.proseth_phoneshop.util.PageUtil;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
+@RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
     private final BrandRepository brandRepository;
     private final BrandMapstrucMapper brandMapstrucMapper;
@@ -44,15 +41,14 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public BrandDTO getBrandById(Long id) {
         Brand brandEntity = brandRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Brand not found with id: " + id));
+                .orElseThrow(()-> new ResourceNotFoundExceptions("Brand",id));
         return brandMapstrucMapper.toBrandDTO(brandEntity);
     }
-
     @Override
     public BrandDTO updateBrand(Long id, BrandDTO brandDTO) {
+//        ApiExceptions ex = new ApiExceptions();
         Brand brandEntity = brandRepository.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Brand Not Fund with id:" + id));
+                .orElseThrow(()-> new ResourceNotFoundExceptions("Brand",id));
         brandEntity.setName(brandDTO.getName());
         Brand update = brandRepository.save(brandEntity);
         return brandMapstrucMapper.toBrandDTO(update);
@@ -88,10 +84,6 @@ public class BrandServiceImpl implements BrandService {
 //        Page<Brand> brandPage = brandRepository.findAll(pageable);
 //        return brandPage.map(brandMapstrucMapper::toBrandDTO);
 //    }
-
-
-
-
     @Override
     public Page<BrandDTO> getAllBrands(int page, int limit) {
         Pageable pageable = PageUtil.getPageable(page,limit);
