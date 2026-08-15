@@ -7,4 +7,5 @@ import java.util.List;
 public interface ModelService {
     ModelDTO create(ModelDTO modelDTO);
     List<ModelDTO> getAllModel();
+    ModelDTO getModelById(Long id);
 }

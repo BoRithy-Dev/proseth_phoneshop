@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -39,5 +40,12 @@ public class ModelServiceImpl implements ModelService {
         List<Model> modelEntity = modelRepository.findAll();
         return modelEntity.stream()
                 .map(modelMapstrucMapper::toModelDTO).toList();
+    }
+
+    @Override
+    public ModelDTO getModelById(Long id) {
+        Model modelEntity = modelRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundExceptions("Model",id));
+        return modelMapstrucMapper.toModelDTO(modelEntity);
     }
 }
