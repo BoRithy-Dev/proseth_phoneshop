@@ -24,5 +24,9 @@ public class ModelController {
     public ResponseEntity<List<ModelDTO>> findAll(){
     return ResponseEntity.ok(modelService.getAllModel());
 }
+@GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+    return ResponseEntity.ok(modelService.getModelById(id));
+}
 
 }
