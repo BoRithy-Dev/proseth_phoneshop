@@ -55,7 +55,7 @@ public class BrandController {
   @GetMapping
   public  ResponseEntity<?> getAllBrands(
           @RequestParam(value = "_page", defaultValue = "1") int page,
-          @RequestParam(value = "_limit", defaultValue = "2") int limit
+          @RequestParam(value = "_limit", defaultValue = "10") int limit
   ){
     Page<BrandDTO> result = brandService.getAllBrands(page, limit);
     return ResponseEntity.ok(result);
