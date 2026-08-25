@@ -1,4 +1,4 @@
-package com.app.proseth_phoneshop;
+package com.app.proseth_phoneshop.configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

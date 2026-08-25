@@ -1,5 +1,6 @@
 package com.app.proseth_phoneshop.repository;
 
+import com.app.proseth_phoneshop.dto.ModelDTO;
 import com.app.proseth_phoneshop.entity.Brand;
 import com.app.proseth_phoneshop.entity.Model;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,5 @@ import java.util.List;
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Long>, JpaSpecificationExecutor<Model>{
     List<Model> findByName(String name);
+    List<Model> findByBrandId(Long brandId);
 }

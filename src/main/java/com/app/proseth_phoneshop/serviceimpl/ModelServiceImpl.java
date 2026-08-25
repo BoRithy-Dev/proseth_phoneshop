@@ -48,4 +48,11 @@ public class ModelServiceImpl implements ModelService {
                 .orElseThrow(()->new ResourceNotFoundExceptions("Model",id));
         return modelMapstrucMapper.toModelDTO(modelEntity);
     }
+
+    @Override
+    public List<ModelDTO> getByBrand(Long brandId) {
+        List<Model> byBrandId = modelRepository.findByBrandId(brandId);
+        return byBrandId.stream()
+                .map(modelMapstrucMapper::toModelDTO).toList();
+    }
 }
