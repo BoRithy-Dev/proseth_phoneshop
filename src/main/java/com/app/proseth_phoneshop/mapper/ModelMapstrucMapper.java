@@ -16,6 +16,6 @@ public interface ModelMapstrucMapper {
     @Mapping(target = "brand", ignore = true)
     Model toModelEntity(ModelDTO dto);
 
-    @Mapping(target = "brandId", source = "brand.id")
+    @Mapping(target = "brand_id", source = "brand.id")
     ModelDTO toModelDTO(Model model);
 }
