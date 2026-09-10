@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-brands
+      author: bo
+      changes:
+        - createTable:
+            tableName: brands
+            columns:
+              - column:
+                  name: brand_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              #                    nullable: false
+              - column:
+                  name: brand_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: models
+            columns:
+              - column:
+                  name: models_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              #                    nullable: false
+              - column:
+                  name: model_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: brand_id
+                  type: VARCHAR(100)
+                  constraints:
+                      - foreignKeyName: fk_models_brands
+                        references: brands(brand_id)

@@ -25,9 +25,9 @@ public class ModelServiceImpl implements ModelService {
     public ModelDTO create(ModelDTO modelDTO) {
         Model model = modelMapstrucMapper.toModelEntity(modelDTO);
 //        Long brandId = modelDTO.getBrandId();
-     if (modelDTO.getBrandId() != null && modelDTO.getBrandId() > 0) {
-        Brand brand = brandRepository.findById(modelDTO.getBrandId())
-                .orElseThrow(() -> new ResourceNotFoundExceptions("Brand:",+ modelDTO.getBrandId()));
+     if (modelDTO.getBrand_id() != null && modelDTO.getBrand_id() > 0) {
+        Brand brand = brandRepository.findById(modelDTO.getBrand_id())
+                .orElseThrow(() -> new ResourceNotFoundExceptions("Brand:",+ modelDTO.getBrand_id()));
         model.setBrand(brand);
         }
 

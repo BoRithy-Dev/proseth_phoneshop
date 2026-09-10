@@ -3,21 +3,16 @@ package com.app.proseth_phoneshop.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Entity
-@Table(name = "models")
 @Data
-public class Model {
-
+@Table(name="brands")
+public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "model_id")
+    @Column(name="brand_id")
     private Long id;
-
-    @Column(name = "model_name")
+    @Column(name="brand_name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+
 }
