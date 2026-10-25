@@ -1,5 +1,6 @@
 package com.app.proseth_phoneshop.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,4 +14,5 @@ public class GlobleExceptionsHandler {
                 .status(e.getStatus())
                 .body(errorRespones);
     }
+
 }

@@ -28,5 +28,9 @@ public class ModelController {
     public ResponseEntity<?> findById(@PathVariable Long id){
     return ResponseEntity.ok(modelService.getModelById(id));
 }
-
+@DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteModel(@PathVariable Long id){
+    modelService.deleteModel(id);
+    return ResponseEntity.noContent().build();
+}
 }
