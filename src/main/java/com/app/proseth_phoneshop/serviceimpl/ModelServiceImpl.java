@@ -3,6 +3,7 @@ package com.app.proseth_phoneshop.serviceimpl;
 import com.app.proseth_phoneshop.dto.ModelDTO;
 import com.app.proseth_phoneshop.entity.Brand;
 import com.app.proseth_phoneshop.entity.Model;
+import com.app.proseth_phoneshop.entity.Product;
 import com.app.proseth_phoneshop.exception.ResourceNotFoundExceptions;
 import com.app.proseth_phoneshop.mapper.ModelMapstrucMapper;
 import com.app.proseth_phoneshop.repository.BrandRepository;
@@ -25,9 +26,9 @@ public class ModelServiceImpl implements ModelService {
     public ModelDTO create(ModelDTO modelDTO) {
         Model model = modelMapstrucMapper.toModelEntity(modelDTO);
 //        Long brandId = modelDTO.getBrandId();
-     if (modelDTO.getBrand_id() != null && modelDTO.getBrand_id() > 0) {
-        Brand brand = brandRepository.findById(modelDTO.getBrand_id())
-                .orElseThrow(() -> new ResourceNotFoundExceptions("Brand:",+ modelDTO.getBrand_id()));
+     if (modelDTO.getBrandId() != null && modelDTO.getBrandId() > 0) {
+        Brand brand = brandRepository.findById(modelDTO.getBrandId())
+                .orElseThrow(() -> new ResourceNotFoundExceptions("Brand:",+ modelDTO.getBrandId()));
         model.setBrand(brand);
         }
 
@@ -54,5 +55,13 @@ public class ModelServiceImpl implements ModelService {
         List<Model> byBrandId = modelRepository.findByBrandId(brandId);
         return byBrandId.stream()
                 .map(modelMapstrucMapper::toModelDTO).toList();
+    }
+
+    @Override
+    public void deleteModel(Long id) {
+       if(!modelRepository.existsById(id)){
+           throw  new RuntimeException("Model Not fund Id" + id);
+       }
+        modelRepository.deleteById(id);
     }
 }

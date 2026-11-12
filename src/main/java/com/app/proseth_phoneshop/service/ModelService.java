@@ -10,4 +10,5 @@ public interface ModelService {
     List<ModelDTO> getAllModel();
     ModelDTO getModelById(Long id);
     List<ModelDTO> getByBrand(Long brandId);
+    void deleteModel(Long id);
 }

@@ -5,14 +5,18 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="brands")
-public class Brand {
+@Table(name="suppliers")
+public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="brand_id")
+    @Column(name="supplier_id")
     private Long id;
-    @Column(name="brand_name")
+    @Column(name="supplier_name")
     private String name;
-
-
+    @Column(name="phone")
+    private String phone;
+    @Column(name="address")
+    private String address;
+    @Column(name="email")
+    private String email;
 }

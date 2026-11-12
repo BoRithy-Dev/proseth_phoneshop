@@ -1,15 +1,11 @@
 package com.app.proseth_phoneshop.mapper;
-
-import com.app.proseth_phoneshop.dto.BrandDTO;
-import com.app.proseth_phoneshop.entity.Brand;
-import com.app.proseth_phoneshop.util.MapperBrand;
+import com.app.proseth_phoneshop.dto.ColorDTO;
+import com.app.proseth_phoneshop.entity.Color;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
-
 @Mapper(componentModel = "spring")
-public interface BrandMapstrucMapper {
-    BrandMapstrucMapper INSTANCE = Mappers.getMapper(BrandMapstrucMapper.class);
-    Brand toBrandEntity(BrandDTO brandDTO);
-    BrandDTO toBrandDTO(Brand brand);
+public interface ColorMapstrucMapper {
+    ColorMapstrucMapper INSTANCE = Mappers.getMapper(ColorMapstrucMapper.class);
+    Color toColorEntity(ColorDTO colorDTO);
+    ColorDTO toColorDTO(Color color);
 }
