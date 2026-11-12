@@ -9,9 +9,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @RestController
@@ -38,6 +40,11 @@ public class ProductController {
    ){
        productService.setSellPrice(id, priceDTO.getPrice());
        return ResponseEntity.ok().build();
+   }
+   @PostMapping("/uploadProduct")
+    public ResponseEntity<?> uploadProduct(@RequestParam("file")MultipartFile file){
+       Map<Integer, String> errorMap = productService.uploadProduct(file);
+       return ResponseEntity.ok(errorMap);
    }
 }
 

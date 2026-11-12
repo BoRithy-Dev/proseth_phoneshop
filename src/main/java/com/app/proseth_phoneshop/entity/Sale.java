@@ -1,5 +1,6 @@
 package com.app.proseth_phoneshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.core.SpringVersion;
@@ -17,7 +18,8 @@ public class Sale {
     @Column(name="sale_id")
     private Long id;
     @Column(name="sold_date")
-    private LocalDate soleDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:ss:mm")
+    private LocalDateTime soleDate;
     private Boolean active;
 //    @Column(name="invoice_no")
 //    private String invoiceNo;

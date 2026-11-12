@@ -43,7 +43,7 @@ public class ProductServiceImportHistoryImpl implements ProductServiceImportHist
             productImportHistoryEntity.setSupplier(supplier);
         }
 
-                Product product = productRepository.findById(productImportDTO.getProductId())
+        Product product = productRepository.findById(productImportDTO.getProductId())
                 .orElseThrow(()-> new ResourceNotFoundExceptions("Product:" ,productImportDTO.getProductId()));
         productImportHistoryEntity.setProduct(product);
         BigDecimal totalCost = productImportDTO.getPricePerUnit().multiply(BigDecimal.valueOf(productImportDTO.getImportUnit()));
@@ -52,5 +52,7 @@ public class ProductServiceImportHistoryImpl implements ProductServiceImportHist
         productRepository.save(product);
         ProductImportHistory productImportHistory = productImportHistoryRepository.save(productImportHistoryEntity);
         return productImportHistoryMapstructMapper.toProductImportHistoryDTO(productImportHistory);
+
     }
+
 }
